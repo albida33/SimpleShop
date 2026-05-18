@@ -1,0 +1,253 @@
+/* Styles specific to index.html — product grid, cart sidebar, and checkout modal.
+   Shared styles (header, nav, toast) live in base.css.                          */
+
+/* ─── MAIN CONTENT AREA ──────────────────────────────────────────────────── */
+main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+h2.section-title {
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+  color: #1a1a2e;
+}
+
+/* ─── CART BUTTON (header) ───────────────────────────────────────────────── */
+#cart-btn {
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+#cart-btn:hover { background: #c73652; }
+
+/* ─── PRODUCT GRID ───────────────────────────────────────────────────────── */
+/* Auto-fills columns that are at least 240px wide; wraps on narrow screens. */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* ─── PRODUCT CARD ───────────────────────────────────────────────────────── */
+.product-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;           /* clips the image to the card's rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;          /* crops rather than squishes the image */
+}
+
+.product-info { padding: 16px; }
+.product-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+.product-desc { font-size: 0.85rem; color: #777; margin-bottom: 12px; }
+
+/* Row that holds the price (left) and Add to Cart button (right) */
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price { font-size: 1.2rem; font-weight: 700; color: #e94560; }
+
+.add-btn {
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.add-btn:hover { background: #e94560; }
+
+/* ─── CART OVERLAY ───────────────────────────────────────────────────────── */
+/* Dark layer behind the sidebar. Clicking it closes the cart (wired in JS). */
+.cart-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;                   /* top/right/bottom/left: 0 */
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+}
+.cart-overlay.open { display: block; }
+
+/* ─── CART SIDEBAR ───────────────────────────────────────────────────────── */
+/* Panel that slides in from the right. Starts off-screen (right: -400px)
+   and animates to right: 0 when .open is added by JavaScript.               */
+.cart-sidebar {
+  position: fixed;
+  top: 0; right: -400px;
+  width: 360px;
+  height: 100%;
+  background: white;
+  z-index: 300;               /* above the overlay */
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+  overflow-y: auto;
+}
+.cart-sidebar.open { right: 0; }
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.cart-header h3 { font-size: 1.3rem; }
+
+#close-cart {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Grows to fill available height, pushing the footer to the bottom */
+#cart-items { flex: 1; }
+
+.cart-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.cart-item-info  { flex: 1; }
+.cart-item-name  { font-weight: 600; font-size: 0.95rem; }
+.cart-item-price { color: #e94560; font-size: 0.9rem; }
+
+.remove-item {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.remove-item:hover { color: #e94560; }
+
+.cart-empty { text-align: center; color: #aaa; margin-top: 60px; font-size: 1rem; }
+
+/* ─── CART FOOTER ────────────────────────────────────────────────────────── */
+.cart-footer {
+  border-top: 2px solid #eee;
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+#checkout-btn {
+  width: 100%;
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#checkout-btn:hover { background: #c73652; }
+
+/* ─── CHECKOUT MODAL ─────────────────────────────────────────────────────── */
+/* Centred dialog asking for a customer ID. display:flex centres the white
+   box. z-index 500 puts it above the cart sidebar (z-index 300).            */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 500;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  width: 360px;
+  max-width: 90vw;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modal h3 { font-size: 1.3rem; color: #1a1a2e; margin-bottom: 8px; }
+.modal p  { color: #777; font-size: 0.9rem; margin-bottom: 20px; }
+
+/* Border turns red when submitted empty (set by JS) */
+.modal input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.modal input[type="text"]:focus { border-color: #1a1a2e; }
+
+/* Cancel (left, smaller) and Place Order (right, larger) side by side */
+.modal-buttons { display: flex; gap: 12px; }
+
+#modal-cancel {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #eee;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+#modal-cancel:hover { border-color: #ccc; }
+
+#modal-confirm {
+  flex: 2;
+  padding: 12px;
+  background: #e94560;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+#modal-confirm:hover { background: #c73652; }

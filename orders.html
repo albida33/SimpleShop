@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order History — Simple Shop</title>
+  <link rel="stylesheet" href="css/base.css">    <!-- reset, header, nav, toast -->
+  <link rel="stylesheet" href="css/orders.css">  <!-- order cards, table, toolbar -->
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────────── -->
+<header>
+  <h1>Simple Shop</h1>
+  <nav>
+    <a href="index.html">Back to Shop</a>
+  </nav>
+</header>
+
+<!-- ─── ORDER LIST ──────────────────────────────────────────────────────────── -->
+<main>
+  <h2 class="section-title">Order History</h2>
+  <p class="order-count" id="order-count"></p>   <!-- "4 orders on file" -->
+
+  <!-- Clear History button — hidden until orders exist (shown by orders.js) -->
+  <div class="toolbar" id="toolbar" style="display:none;">
+    <button id="clear-btn">Clear History</button>
+  </div>
+
+  <!-- orders.js injects one card per order here -->
+  <div id="orders-container"></div>
+</main>
+
+<!-- orders.js: sample data, seed, formatDate, renderOrders, clear handler -->
+<script src="js/orders.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+/* ─── RESET ──────────────────────────────────────────────────────────────────
+   Removes default browser spacing; border-box makes element widths
+   predictable by including padding in the declared width.                   */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── PAGE BASE ──────────────────────────────────────────────────────────── */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* ─── STICKY HEADER ──────────────────────────────────────────────────────── */
+header {
+  background: #1a1a2e;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 { font-size: 1.5rem; letter-spacing: 1px; }
+
+/* ─── HEADER NAV ─────────────────────────────────────────────────────────── */
+nav {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Links inside the header nav (e.g. "Order History", "Back to Shop") */
+nav a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 8px 4px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+nav a:hover {
+  color: white;
+  border-bottom-color: #e94560;
+}
+
+/* ─── TOAST NOTIFICATION ─────────────────────────────────────────────────── */
+/* Brief pop-up at the bottom of the screen. JS adds/removes .show to
+   animate it in and out.                                                     */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px); /* starts below the screen */
+  background: #1a1a2e;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 400;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);   /* slides up into view */
+}

@@ -1,0 +1,7 @@
+# Exclude docs and config files that don't belong inside the container image
+README.md
+DEPLOYMENT.md
+.firebaserc
+firebase.json
+.gitignore
+*.md

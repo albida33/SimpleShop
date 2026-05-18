@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Shop</title>
+  <link rel="stylesheet" href="css/base.css">   <!-- reset, header, nav, toast -->
+  <link rel="stylesheet" href="css/shop.css">   <!-- product grid, cart, modal -->
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────────────────── -->
+<header>
+  <h1>Simple Shop</h1>
+  <nav>
+    <a href="orders.html">Order History</a>
+    <button id="cart-btn">Cart (<span id="cart-count">0</span>)</button>
+  </nav>
+</header>
+
+<!-- ─── PRODUCT GRID ────────────────────────────────────────────────────────── -->
+<!-- Empty on load — products.js fills this with cards -->
+<main>
+  <h2 class="section-title">Featured Products</h2>
+  <div class="product-grid" id="product-grid"></div>
+</main>
+
+<!-- ─── CART SIDEBAR ────────────────────────────────────────────────────────── -->
+<!-- Dark overlay behind the sidebar; clicking it closes the cart -->
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<!-- Panel that slides in from the right; cart.js manages open/close -->
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button id="close-cart">&times;</button>
+  </div>
+  <div id="cart-items"></div>   <!-- cart.js injects item rows here -->
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cart-total">$0.00</span>
+    </div>
+    <button id="checkout-btn">Checkout</button>
+  </div>
+</div>
+
+<!-- ─── CHECKOUT MODAL ──────────────────────────────────────────────────────── -->
+<!-- Shown when the user clicks Checkout; asks for a customer ID -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h3>Complete Your Order</h3>
+    <p>Enter your customer ID to place the order.</p>
+    <input type="text" id="customer-id-input" placeholder="e.g. CUST-001" maxlength="30">
+    <div class="modal-buttons">
+      <button id="modal-cancel">Cancel</button>
+      <button id="modal-confirm">Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TOAST ───────────────────────────────────────────────────────────────── -->
+<div class="toast" id="toast"></div>
+
+<!-- Scripts loaded with defer so they run after the HTML is parsed.
+     Order matters: products.js → cart.js → checkout.js               -->
+<script src="js/products.js" defer></script>   <!-- product data + renderProducts() -->
+<script src="js/cart.js"     defer></script>   <!-- cart state, sidebar, toast, init -->
+<script src="js/checkout.js" defer></script>   <!-- modal, placeOrder(), order save  -->
+
+</body>
+</html>
