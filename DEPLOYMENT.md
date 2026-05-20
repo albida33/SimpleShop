@@ -27,7 +27,7 @@ Complete this section once before following any deployment steps.
 2. Create a new project (or select an existing one).
 3. Enable billing on the project — required even for free-tier resources.
 4. Copy your **Project ID** from the project selector drop-down.
-   You will substitute it wherever `YOUR_PROJECT_ID` appears below.
+   Your **Project ID** is `project1-dats5750-496606`.
 
 ### 1.2 Install and configure the Google Cloud CLI (local machine only)
 
@@ -42,10 +42,10 @@ exec -l $SHELL          # reload shell so gcloud is on PATH
 gcloud auth login       # opens a browser for Google sign-in
 
 # Set your project
-gcloud config set project YOUR_PROJECT_ID
+gcloud config set project project1-dats5750-496606
 
 # Confirm
-gcloud config get-value project   # should print YOUR_PROJECT_ID
+gcloud config get-value project   # should print project1-dats5750-496606
 ```
 
 > **WSL tip:** If the browser does not open automatically, copy the URL that
@@ -73,28 +73,14 @@ No local tools or uploads needed.
 
 ```bash
 # Public repository
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-cd YOUR_REPO_NAME
-```
-
-For a **private repository**, authenticate first:
-
-```bash
-# Option A — HTTPS with a personal access token
-git clone https://YOUR_TOKEN@github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-
-# Option B — SSH (add your Cloud Shell public key to GitHub first)
-#   Print your public key:
-cat ~/.ssh/id_rsa.pub
-#   Paste it in GitHub → Settings → SSH and GPG Keys → New SSH Key
-#   Then clone:
-git clone git@github.com:YOUR_USERNAME/YOUR_REPO_NAME.git
+git clone https://github.com/albida33/SimpleShop.git
+cd SimpleShop
 ```
 
 ### Step 3 — Set your project
 
 ```bash
-gcloud config set project YOUR_PROJECT_ID
+gcloud config set project project1-dats5750-496606
 ```
 
 ---
@@ -117,7 +103,7 @@ gcloud compute ssh simple-shop-vm --zone=us-central1-a
 
 # 2. On the VM — install git and clone the repo into the web root
 sudo apt-get install -y git
-sudo git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git \
+sudo git clone https://github.com/albida33/SimpleShop.git \
      /var/www/simple-shop
 sudo chown -R www-data:www-data /var/www/simple-shop
 
@@ -154,11 +140,11 @@ gcloud artifacts repositories create simple-shop \
 # 3. Build the image on Cloud Build and push it to Artifact Registry
 #    (run from the project root where Dockerfile lives)
 gcloud builds submit \
-  --tag=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest .
+  --tag=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest .
 
 # 4. Deploy to Cloud Run
 gcloud run deploy simple-shop \
-  --image=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest \
+  --image=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest \
   --platform=managed \
   --region=us-central1 \
   --allow-unauthenticated \
@@ -180,10 +166,10 @@ Cloud Run provides HTTPS automatically.
 git pull
 
 gcloud builds submit \
-  --tag=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest .
+  --tag=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest .
 
 gcloud run deploy simple-shop \
-  --image=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest \
+  --image=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest \
   --platform=managed \
   --region=us-central1
 ```
@@ -218,7 +204,7 @@ Answer the prompts:
 firebase deploy --only hosting
 ```
 
-Firebase prints the live URL when complete (e.g. `https://YOUR_PROJECT_ID.web.app`).
+Firebase prints the live URL when complete (e.g. `https://project1-dats5750-496606.web.app`).
 
 #### Update after a `git push`
 
@@ -362,7 +348,7 @@ gcloud artifacts repositories create simple-shop \
 
 ```bash
 gcloud builds submit \
-  --tag=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest .
+  --tag=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest .
 ```
 
 **If deploying from your local machine** with Docker installed:
@@ -373,18 +359,18 @@ gcloud auth configure-docker us-central1-docker.pkg.dev
 
 # Build
 docker build -t \
-  us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest .
+  us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest .
 
 # Push
 docker push \
-  us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest
+  us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest
 ```
 
 ### Step 4 — Deploy to Cloud Run
 
 ```bash
 gcloud run deploy simple-shop \
-  --image=us-central1-docker.pkg.dev/YOUR_PROJECT_ID/simple-shop/app:latest \
+  --image=us-central1-docker.pkg.dev/project1-dats5750-496606/simple-shop/app:latest \
   --platform=managed \
   --region=us-central1 \
   --allow-unauthenticated \
@@ -456,7 +442,7 @@ firebase init hosting
 firebase deploy --only hosting
 ```
 
-Firebase prints the live URL when complete (e.g. `https://YOUR_PROJECT_ID.web.app`).
+Firebase prints the live URL when complete (e.g. `https://project1-dats5750-496606.web.app`).
 
 ### Updating after code changes
 

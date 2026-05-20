@@ -31,6 +31,14 @@ npx serve .
 
 Then open the URL printed in the terminal (usually `http://localhost:3000`).
 
+## How to Run in Gcloud Console
+
+```bash
+npx serve --no-clipboard -l 8080 .
+```
+
+Then open the URL printed in the terminal (usually `http://localhost:8080`).
+
 ## Using the App
 
 ### Shop page (`index.html`)
